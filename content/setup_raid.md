@@ -1,4 +1,6 @@
-[return](../README.md)
+[return to table](../README.md)
+
+---
 
 Suppose I have two hard drives ```/dev/sda``` and ```/dev/sdb```, I want to setup a RAID system on these two drives.
 
