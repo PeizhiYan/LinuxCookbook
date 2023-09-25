@@ -8,4 +8,7 @@ Author: Peizhi Yan
 
 - [Change File/Path Permission (chmod)](./content/chmod.md)
 - [Setup RAID](./content/setup_raid.md)
+- [Setup SAMBA](./content/samba.md)
+
+  
 
