@@ -10,5 +10,6 @@ Author: Peizhi Yan
 - [Setup RAID](./content/setup_raid.md)
 - [Setup SAMBA](./content/samba.md)
 
-  
+- [MacOS Commands](./content/macos.md)
+
 
