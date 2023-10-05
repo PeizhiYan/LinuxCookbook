@@ -31,4 +31,9 @@
 > +----[SHA256]-----+
 > ```
 
+### Step 2
+> Copy the SSH key to the remote server
+> ```
+> ssh-copy-id root@linuxsvr02
+> ```
 
