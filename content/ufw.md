@@ -22,12 +22,15 @@ sudo ufw allow [servicename]/tcp
 sudo ufw enable
 ```
 
+---
+
 ## Allow Connections from a Specific IP:
 ```
 sudo ufw allow from [IP]
 sudo ufw enable
 ```
 
+---
 
 ## Close a Port
 ```
@@ -35,6 +38,7 @@ sudo ufw deny 995
 sudo ufw enable
 ```
 
+---
 
 ## Check Open Ports in UFW
 ```
