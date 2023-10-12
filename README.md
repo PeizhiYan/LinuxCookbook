@@ -10,6 +10,7 @@ Author: Peizhi Yan
 - [Login w/o Password](./content/no_passwd_login.md)
 - [Setup RAID](./content/setup_raid.md)
 - [Setup SAMBA](./content/samba.md)
+- [UFW: Uncomplicated Firewall](./content/ufw.md)
 
 - [MacOS Commands](./content/macos.md)
 
