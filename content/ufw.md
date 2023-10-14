@@ -4,6 +4,11 @@
 
 # Uncomplicated Firewall (UFW)
 
+> **Note!**
+> 
+> Don't forget to add port 22 to ```ufw``` if not done so, otherwise the firewall will block out SSH connection!!
+
+---
 
 ## Open a Port
 ```
