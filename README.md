@@ -11,6 +11,7 @@ Author: Peizhi Yan
 - [Setup RAID](./content/setup_raid.md)
 - [Setup SAMBA](./content/samba.md)
 - [UFW: Uncomplicated Firewall](./content/ufw.md)
+- [Tmux](./content/tmux.md)
 
 - [MacOS Commands](./content/macos.md)
 
