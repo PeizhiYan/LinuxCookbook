@@ -12,6 +12,7 @@ Author: Peizhi Yan
 - [Setup SAMBA](./content/samba.md)
 - [UFW: Uncomplicated Firewall](./content/ufw.md)
 - [Tmux](./content/tmux.md)
+- [X11](./content/x11.md)
 
 - [MacOS Commands](./content/macos.md)
 - [Windows Subsystem for Linux](./content/WSL.md)
