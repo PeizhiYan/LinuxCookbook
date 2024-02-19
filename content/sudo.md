@@ -6,6 +6,12 @@
 
 This guide explains how to add or remove users from the sudo group in Linux and how to verify these changes. The sudo group grants users the ability to execute commands with superuser (root) privileges, which are necessary for performing system administration tasks.
 
+
+## Print All Sudo Users
+```
+getent group sudo
+```
+
 ## Adding a User to the Sudo Group
 
 To grant sudo privileges to a user, add them to the sudo group. Here's how you can do it:
