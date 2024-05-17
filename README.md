@@ -9,6 +9,7 @@ Author: Peizhi Yan
 - [Change File/Path Permission (chmod)](./content/chmod.md)
 - [Managing Sudo Group Members](./content/sudo.md)
 - [Login w/o Password](./content/no_passwd_login.md)
+- [Mount Disk](./content/mount_disk.md)
 - [Setup RAID](./content/setup_raid.md)
 - [Setup SAMBA](./content/samba.md)
 - [UFW: Uncomplicated Firewall](./content/ufw.md)
