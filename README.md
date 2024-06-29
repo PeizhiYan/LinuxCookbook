@@ -18,7 +18,7 @@ Author: Peizhi Yan
   - [X11](./content/x11.md)
 - Python
   - [Pip](./content/pip.md)
-  - Conda
+  - [Conda](./content/conda.md)
 - Git
   - [Git Basics] 
 - Other Systems:
