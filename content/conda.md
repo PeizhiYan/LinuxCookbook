@@ -14,6 +14,9 @@ conda remove --name env_name --all
 conda create --name new_env --clone existing_env
 ```
 
-
+### Write Conda Environment Details to a .yml File
+```
+conda env export > environment.yml
+```
 
 
