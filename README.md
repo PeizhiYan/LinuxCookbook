@@ -18,7 +18,7 @@ Author: Peizhi Yan
   - [X11](./content/x11.md)
 - Python
   - [Pip](./content/pip.md)
-- Virtualization
+- Environment Management Tools
   - [Conda](./content/conda.md)
   - [Docker]
 - Git
