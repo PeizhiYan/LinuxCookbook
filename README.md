@@ -9,6 +9,7 @@ Author: Peizhi Yan
 - Linux System
   - [Change File/Path Permission (chmod)](./content/chmod.md)
   - [Managing Sudo Group Members](./content/sudo.md)
+  - [Managing Users](./content/users.md)
   - [Login w/o Password](./content/no_passwd_login.md)
   - [Mount Disk](./content/mount_disk.md)
   - [Setup RAID](./content/setup_raid.md)
