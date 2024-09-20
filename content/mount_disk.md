@@ -94,3 +94,13 @@ sudo mount -a
 # Test fstab entry
 ```
 
+
+# Create a RAM Drive (data will be lost when power off!)
+
+Example:
+```
+mount -o size=16G -t tmpfs none /mnt/ram
+```
+
+
+
