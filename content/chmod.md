@@ -18,6 +18,7 @@ Frequently used codes:
 ```
 chown -R [owner]:[group] [path]
 ```
+- ```-R``` is for recursively apply on all sub paths
 
 For example:
 ```
