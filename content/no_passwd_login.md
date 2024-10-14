@@ -32,7 +32,16 @@
 > ```
 
 ### Step 2
-> Copy the SSH key to the remote server
+Copy the SSH key to the remote server
+
+> Linux:
 > ```
 > ssh-copy-id root@linuxsvr02
 > ```
+
+> Windows:
+> ```
+> type C:\Users\[user_name]\.ssh\[the_ssh_key_file].pub | ssh [linux_user]@[server_address] `cat >> .ssh/authorized_keys`
+> ```
+
+
