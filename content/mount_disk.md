@@ -102,5 +102,10 @@ Example:
 mount -o size=16G -t tmpfs none /mnt/ram
 ```
 
+# Check Disk Spaces
+
+```
+df -H
+```
 
 
