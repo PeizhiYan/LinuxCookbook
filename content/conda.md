@@ -19,6 +19,11 @@ conda create --name new_env --clone existing_env
 conda env export > environment.yml
 ```
 
+### Create from .yml
+```
+conda env create -f environment.yml
+```
+
 
 ## Conda-Pack
 
