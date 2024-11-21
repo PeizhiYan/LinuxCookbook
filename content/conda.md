@@ -2,6 +2,11 @@
 
 ---
 
+### Create a Conda Environment
+```
+conda create --name env_name -y python=3.10
+```
+
 
 ### Delete a Conda Environment
 ```
