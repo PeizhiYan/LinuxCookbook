@@ -19,6 +19,7 @@ Author: Peizhi Yan
   - [X11](./content/x11.md)
   - [RealVNC](./content/realvnc.md)
   - [no-ip](./content/noip.md)
+  - [PiVPN](./content/pivpn.md)
 - Python
   - [Pip](./content/pip.md)
 - Environment Management Tools
