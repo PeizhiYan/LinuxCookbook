@@ -17,13 +17,14 @@ Author: Peizhi Yan
   - [UFW: Uncomplicated Firewall](./content/ufw.md)
   - [Tmux](./content/tmux.md)
   - [X11](./content/x11.md)
+  - [no-ip](./content/noip.md)
 - Python
   - [Pip](./content/pip.md)
 - Environment Management Tools
   - [Conda](./content/conda.md)
   - [Docker]
 - Git
-  - [Git Basics] 
+  - [Git Basics]
 - Other Systems:
   - [MacOS Commands](./content/macos.md)
   - [Windows Subsystem for Linux](./content/WSL.md)
