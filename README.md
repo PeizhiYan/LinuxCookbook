@@ -17,6 +17,7 @@ Author: Peizhi Yan
   - [UFW: Uncomplicated Firewall](./content/ufw.md)
   - [Tmux](./content/tmux.md)
   - [X11](./content/x11.md)
+  - [RealVNC](./content/realvnc.md)
   - [no-ip](./content/noip.md)
 - Python
   - [Pip](./content/pip.md)
