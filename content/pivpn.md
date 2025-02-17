@@ -46,7 +46,27 @@ If missing, add them and restart the service:
 sudo systemctl restart openvpn
 ```
 
-#### Step 2: Check the generated ```.ovpn``` file:
+#### Step 2: Check OpenVPN server's DNS
+```
+sudo resolvectl status
+```
+If it shows 192.168.0.1 as the DNS, force OpenVPN's DNS by editing:
+```
+sudo nano /etc/resolv.conf
+```
+
+Replace with:
+```
+nameserver 1.1.1.1
+nameserver 1.0.0.1
+```
+Then restart the service
+```
+sudo systemctl restart openvpn
+```
+
+
+#### Step 3: Check the generated ```.ovpn``` file:
 Make sure these lines exist:
 ```
 dhcp-option DNS 1.1.1.1
