@@ -9,7 +9,7 @@
 curl -L https://install.pivpn.io | bash
 ```
 
-- Recommand: Wireguard (easier, faster and safe, uses QR code)
+- Recommand: Wireguard (easier, faster and safe, uses either configuration file or QR code)
 - Not Recommand: OpenVPN (less safe, and needs configuration file)
 - Recommand: Choose UDP protocal
 - Recommand: Choose the default one
