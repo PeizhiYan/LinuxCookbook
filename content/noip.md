@@ -2,6 +2,11 @@
 
 ---
 
+## Install No-ip Client
+
+https://www.noip.com/download?page=linux
+
+
 ## Start No-ip Client Automatically
 
 ### Step 1: Create a new systemd service file
