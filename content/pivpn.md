@@ -9,12 +9,32 @@
 curl -L https://install.pivpn.io | bash
 ```
 
-- Recommand: Choose OpenVPN
+- Recommand: Wireguard (easier, faster and safe, uses QR code)
+- Not Recommand: OpenVPN (less safe, and needs configuration file)
 - Recommand: Choose UDP protocal
-- Recommand: Choose Cloudflare DNS
+- Recommand: Choose the default one
 - Public DNS Name (for example the url from no-ip):  your_custom_name.ddns.net
 
-## Troubleshoot
+
+## Wireguard
+
+### Add a client
+```
+pivpn wg add
+```
+
+### Generate the QR code
+```
+pivpn wg -qr
+```
+
+
+
+
+
+
+
+## Troubleshoot (OpenVPN)
 
 ### Check OpenVPN listening ports
 ```
