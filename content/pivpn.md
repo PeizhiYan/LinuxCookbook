@@ -47,10 +47,7 @@ sudo systemctl restart openvpn
 ```
 
 #### Step 2: Check OpenVPN server's DNS
-```
-sudo resolvectl status
-```
-If it shows 192.168.0.1 as the DNS, force OpenVPN's DNS by editing:
+Check if it shows 192.168.0.1 as the DNS, force OpenVPN's DNS by editing:
 ```
 sudo nano /etc/resolv.conf
 ```
