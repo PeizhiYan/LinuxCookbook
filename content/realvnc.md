@@ -49,4 +49,10 @@ If not, try reboot the system, it will sometimes solve the problem.
 vnclicensewiz
 ```
 
+## To open RealVNC GUI (X11)
+```
+vncserver-x11
+```
+
+
 
