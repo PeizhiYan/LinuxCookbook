@@ -9,12 +9,24 @@
 curl -L https://install.pivpn.io | bash
 ```
 
-- Choose OpenVPN
-- Suggest: Choose UDP protocal
-- Suggest: Choose Cloudflare DNS
+- Recommand: Choose OpenVPN
+- Recommand: Choose UDP protocal
+- Recommand: Choose Cloudflare DNS
 - Public DNS Name (for example the url from no-ip):  your_custom_name.ddns.net
 
 ## Troubleshoot
+
+### Check OpenVPN listening ports
+```
+sudo ss -tulnp | grep openvpn
+```
+
+Expected output:
+```
+udp        0      0 0.0.0.0:8888          0.0.0.0:*               724/openvpn
+```
+Where ```0.0.0.0:8888``` means it is listening on the local port ```8888```, ```0.0.0.0:* ``` means it accepts all connected from the Internet, and ```724``` is the PID.
+
 
 ### I can connect to VPN if my client device is connected to the same local network (same router) with the VPN server, however, if my client device is not connected to the same local network, it does not work.
 
