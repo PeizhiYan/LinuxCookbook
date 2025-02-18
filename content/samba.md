@@ -28,6 +28,13 @@ At the bottom of the file, add:
 sudo service smbd restart
 ```
 
+### Add and Enable a SAMBA User 
+```
+sudo smbpasswd -a [user_name]
+sudo smbpasswd -e [user_name]
+```
+
+
 ### Update Firewall Rule
 ```
 sudo ufw allow samba
