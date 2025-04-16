@@ -21,6 +21,7 @@ Author: Peizhi Yan
   - [🌎no-ip](./content/noip.md)
   - [🌐PiVPN](./content/pivpn.md)
   - [📧E-Mail Server](./content/mail.md)
+  - [📝Bash Scripting](./content/bash.md)
 - Python
   - [Pip](./content/pip.md)
 - Environment Management Tools
