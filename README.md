@@ -6,7 +6,7 @@ Author: Peizhi Yan
 
 ## Table of Contents
 
-- Linux System
+- Linux
   - [Change File/Path Permission (chmod)](./content/chmod.md)
   - [Managing Sudo Group Members](./content/sudo.md)
   - [Managing Users](./content/users.md)
@@ -20,6 +20,7 @@ Author: Peizhi Yan
   - [RealVNC](./content/realvnc.md)
   - [no-ip](./content/noip.md)
   - [PiVPN](./content/pivpn.md)
+  - [E-Mail Server](./content/mail.md)
 - Python
   - [Pip](./content/pip.md)
 - Environment Management Tools
