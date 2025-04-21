@@ -39,9 +39,14 @@ Copy the SSH key to the remote server
 > ssh-copy-id root@linuxsvr02
 > ```
 
-> Windows:
+> Windows (do it manually):
+>
+> First, copy the public key (the entire line) in ```C:\Users\[user_name]\.ssh\[the_ssh_key_file].pub```
+>
+> Then, open the file ```~/.ssh/authorized_keys``` (create the folder and file if not exist) on Linux server, paste the public key to the file, save it. Done.
+>
+> An example line looks like:
 > ```
-> type C:\Users\[user_name]\.ssh\[the_ssh_key_file].pub | ssh [linux_user]@[server_address] `cat >> .ssh/authorized_keys`
+> ssh-ed25519 AAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBCCCCCCCCCCCCCCCCCCCCC user@address
 > ```
-
 
