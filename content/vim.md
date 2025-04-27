@@ -10,9 +10,19 @@
 - ```:wq``` for save and quit
 - ```:w``` for save (write)
 
+
 ## Edit
-- ```i``` for insert
-- ```Esc``` return to command mode
+- ```i``` (in command mode) for insert
+- ```Esc``` (in insert mode) return to command mode
+- ```dd``` (in command mode) for delete the entire line
+- ```x``` (in visual mode) for delete the selected text
+- ```v``` (in command mode) for selecting (activate visual mode)
+
+### Copy and Paste (in Visual Mode)
+- ```d``` cut
+- ```y``` copy
+- ```p``` paste
+
 
 
 ## Vim Configuration File
