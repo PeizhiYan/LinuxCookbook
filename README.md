@@ -23,6 +23,7 @@ Author: Peizhi Yan
   - [🌐PiVPN](./content/pivpn.md)
   - [📧E-Mail Server](./content/mail.md)
   - [📝Bash Scripting](./content/bash.md)
+  - [🎛️System Resources Management](./content/resource_mng.md)
 - Python
   - [Pip](./content/pip.md)
 - Environment Management Tools
