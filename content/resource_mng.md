@@ -11,7 +11,7 @@
 > power! 
 
 ```shell
-## Set CPU Quota for user-1001 to 50%
+## Set CPU Quota for user-1001
 sudo systemctl set-property user-1001.slice CPUQuota=200%
 
 ## Reset CPU Quota for user-1001 to unlimited
