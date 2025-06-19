@@ -24,6 +24,7 @@ Author: Peizhi Yan
   - [📧E-Mail Server](./content/mail.md)
   - [📝Bash Scripting](./content/bash.md)
   - [🎛️System Resources Management](./content/resource_mng.md)
+  - [⏱️Processes](./content/process.md)
 - Python
   - [Pip](./content/pip.md)
 - Environment Management Tools
