@@ -37,3 +37,9 @@ sudo nvidia-smi -q -d POWER
 sudo nvidia-smi -i <GPU> -pl <POWER>
 ```
 
+### Reset GPU
+```
+## e.g., free GPU 2
+sudo nvidia-smi --gpu-reset -i 2
+```
+
