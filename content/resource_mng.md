@@ -5,7 +5,8 @@
 
 ## CPU and RAM Quota Setting
 
-> Note: CPUQuota percentage is basde on a single core.
+> [!NOTE]
+> CPUQuota percentage is basde on a single core.
 > for example, if CPUQuota=100%, on a system with 8 logical cores, it means
 > allowed CPU is 100% of one logical core, basically 1/8 of the total CPU
 > power! 
