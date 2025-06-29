@@ -13,3 +13,17 @@ for fname in *.jpg;
 done
 ```
 
+### Run Commands in Parallel
+```bash
+command1 &
+command2 &
+command3 &
+wait  # waits for all background jobs to finish
+```
+or
+```bash
+for i in {1..3}; do
+  running_task $i &
+done
+wait
+```
