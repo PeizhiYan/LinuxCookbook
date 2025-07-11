@@ -2,6 +2,32 @@
 
 ---
 
+# SSH
+
+## SSH Config
+
+```shell
+sudo nano /etc/ssh/sshd_config
+```
+
+### Allow user from accessing
+```
+AllowUser [username]
+```
+### Enable access via password
+```
+PasswordAuthentication yes
+```
+
+### Restart SSH to take into effect
+```
+sudo systemctl restart sshd
+```
+
+
+
+
+
 ## Setup Login Linux without Password Everytime
 
 ### Step 1
