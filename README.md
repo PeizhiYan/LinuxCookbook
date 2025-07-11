@@ -10,7 +10,7 @@ Author: Peizhi Yan
   - [🔑Change File/Path Permission (chmod)](./content/chmod.md)
   - [👥Managing Sudo Group Members](./content/sudo.md)
   - [👤Managing Users](./content/users.md)
-  - [🔐Login w/o Password](./content/no_passwd_login.md)
+  - [🔐SSH, Login w/o Password](./content/ssh.md)
   - [💿Mount Disk](./content/mount_disk.md)
   - [📀Setup RAID](./content/setup_raid.md)
   - [🗃️Setup SAMBA](./content/samba.md)
