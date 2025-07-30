@@ -27,11 +27,11 @@ sudo apt install linux-headers-$(uname -r) linux-image-$(uname -r)
 > [!TIP]
 > Check the available versions:
 > ```
-> sudo apt install dkms
 > apt search nvidia-driver
 > ```
 
 ```
+sudo apt install dkms
 sudo apt install nvidia-driver-570
 ```
 
