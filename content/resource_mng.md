@@ -2,6 +2,10 @@
 
 ---
 
+### Check the ID of A User
+```shell
+id [USER]
+```
 
 ## CPU and RAM Quota Setting
 
