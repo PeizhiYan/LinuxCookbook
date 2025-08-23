@@ -1,3 +1,6 @@
+[return to table](../README.md)
+
+---
 
 
 
@@ -5,7 +8,7 @@
 
 ```.vscode/settings.json```
 
-```json
+```
 {
     "workbench.colorCustomizations": {
         // Ignored files (from .gitignore)
