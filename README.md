@@ -1,8 +1,5 @@
 # LinuxCookbook
 
-Author: Peizhi Yan
-
----
 
 ## Table of Contents
 
@@ -26,6 +23,7 @@ Author: Peizhi Yan
   - [🎛️ System Resources Management](./content/resource_mng.md)
   - [⏱️ Processes](./content/process.md)
   - [🪛 Nvidia Driver](./content/nvidia.md)
+  - [🧑‍💻 VS Code](./content/vscode.md)
 - Python
   - [Pip](./content/pip.md)
 - Environment Management Tools
