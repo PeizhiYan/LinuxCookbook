@@ -14,7 +14,7 @@ A session can contain multiple windows. Each window works like a separate termin
 - ```tmux ls```: list the sessions, alternative ```tmux list-sessions```.
 - ```tmux list-panes```: list the panes.
 - ```tmux a```: attach a session.
-- ```tmux attach-session -t <session_name>```: attach a session by name.
+- ```tmux attach -t <session_name>```: attach a session by name.
 - ```Ctrl```+```B```, ```D``` (detach): return to normal shell terminal.
 - ```Ctrl```+```B```, ```:kill-session```: kill the entire session (including its windows).
 
