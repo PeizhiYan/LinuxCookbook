@@ -25,14 +25,14 @@
   - [🪛 Nvidia Driver](./content/nvidia.md)
   - [🧑‍💻 VS Code](./content/vscode.md)
 - Python
-  - [Pip](./content/pip.md)
+  - [🛞 Pip](./content/pip.md)
 - Environment Management Tools
-  - [Conda](./content/conda.md)
-  - [Docker]
+  - [🐍 Conda](./content/conda.md)
+  - [🐋 Docker](./content/docker.md)
 - Git
-  - [Git Basics]
+  - [🗄️ Git Basics](./content/git.md)
 - Other Systems:
-  - [MacOS Commands](./content/macos.md)
+  - [🍎 MacOS Commands](./content/macos.md)
   - [Windows Subsystem for Linux](./content/WSL.md)
 
 
