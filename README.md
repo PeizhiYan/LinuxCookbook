@@ -1,9 +1,10 @@
 # LinuxCookbook
 
+Peizhi Yan
 
 ## Table of Contents
 
-- Linux
+- Linux/Unix-like
   - [🔑 Change File/Path Permission (chmod)](./content/chmod.md)
   - [👥 Managing Sudo Group Members](./content/sudo.md)
   - [👤 Managing Users](./content/users.md)
