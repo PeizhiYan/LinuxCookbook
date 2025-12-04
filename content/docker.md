@@ -3,7 +3,7 @@
 ---
 
 
-## Add Docker to Groups
+## 👥 Add Docker to Groups
 
 To use Docker without requiring `sudo`, add your user to the **docker** group.
 
@@ -22,5 +22,10 @@ Verify that Docker is in your groups:
 groups
 ```
 You should see ```docker``` listed.
+
+
+## 📄 Docker File
+
+
 
 
