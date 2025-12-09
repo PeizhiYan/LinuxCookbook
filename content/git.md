@@ -47,6 +47,7 @@ git push origin main
 By default, ```git push``` is using ```git push --no-rebase```. See following:
 
 | **Command** | **Meaning** |
+|----------|----------|
 | ```git pull --no-rebase``` | Merges remote changes into your local branch. Creates a merge commit. |
 | ```git pull --rebase``` | Applied your local commits on top of remote commits. |
 
