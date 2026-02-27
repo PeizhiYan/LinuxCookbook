@@ -16,6 +16,7 @@ Peizhi Yan
   - [🪟 Tmux](./content/tmux.md)
   - [⌨️ Vim](./content/vim.md)
   - [💻 X11](./content/x11.md)
+  - [💻 Xpra](./content/xpra.md)
   - [🖥️ RealVNC](./content/realvnc.md)
   - [🌎 no-ip](./content/noip.md)
   - [🌐 PiVPN](./content/pivpn.md)
