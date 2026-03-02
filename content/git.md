@@ -2,6 +2,18 @@
 
 ---
 
+## Config
+
+```bash
+git config --global user.name "First Last"
+git config --global user.email "abc@email.com"
+```
+
+## Test Github Authentication
+```bash
+ssh -T git@github.com
+```
+
 
 ## Clone
 
