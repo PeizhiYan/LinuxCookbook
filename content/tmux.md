@@ -49,6 +49,21 @@ The purpose of panes is to split the workspace.
 
 ---
 
+## Copy and Paste
+
+### Copy
+1. Enter copy mode ```Ctrl```+```B```, then ```[```.
+2. Move cursor using arrow keys, or like in Vim (h,j,k,l).
+3. Start selecting text by pressing the ```Space``` button.
+4. Copy the selected text by pressing the ```Enter``` button.
+
+### Paste
+```Ctrl```+```B```, then ```]```.
+
+
+
+---
+
 ## Configurations
 
 One can also customize ```tmux``` using its config file ```sudo nano ~/tmux.conf```.
