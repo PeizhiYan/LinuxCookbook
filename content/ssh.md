@@ -76,3 +76,13 @@ Copy the SSH key to the remote server
 > ssh-ed25519 AAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBCCCCCCCCCCCCCCCCCCCCC user@address
 > ```
 
+## SSH Tunnel and Proxy
+
+```
+ssh -D 8888 [user]@[server]
+```
+Then, setup to use Proxy to browse Internet:
+
+<img width="360" alt="Screenshot 2026-06-11 at 2 29 22 PM" src="https://github.com/user-attachments/assets/708857c7-e3a1-40cc-a5f9-089748f7a52f" />
+
+
