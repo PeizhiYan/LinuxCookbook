@@ -29,6 +29,7 @@ Peizhi Yan
   - [🌐 PiVPN](./content/pivpn.md)
   - [📧 E-Mail Server](./content/mail.md)
   - [🐠 Tailscale](./content/tailscale.md)
+  - [☁️ Cloudflare　](./content/cloudflare.md)
 - Python
   - [🛞 Pip](./content/pip.md)
 - Environment Management Tools
