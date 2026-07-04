@@ -32,9 +32,11 @@ Peizhi Yan
   - [☁️ Cloudflare　](./content/cloudflare.md)
 - Python
   - [🛞 Pip](./content/pip.md)
-- Environment Management Tools
+- Environment and Virtualization Tools
   - [🐍 Conda](./content/conda.md)
+  - [🌈 uv](./content/uv.md)
   - [🐋 Docker](./content/docker.md)
+  - [⚓️ Kubectl](./content/kubectl.md)
 - Git
   - [🗄️ Git Basics](./content/git.md)
 - Other Systems:
