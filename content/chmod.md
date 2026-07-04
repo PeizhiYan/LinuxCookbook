@@ -1,7 +1,3 @@
-[return to table](../README.md)
-
----
-
 ## Change Permission: ```chmod```
 
 For applying ```chmod``` on all subpaths (-R). For example:

@@ -1,10 +1,3 @@
-[return to table](../README.md)
-
----
-
-
-
-
 ## Check Processes of a User
 ```shell
 ps -fu <USER>

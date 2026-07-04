@@ -1,7 +1,3 @@
-[return to table](../README.md)
-
----
-
 ## Setup SAMBA File Sharing Service
 
 ### Installing SAMBA

@@ -1,7 +1,3 @@
-[return to table](../README.md)
-
----
-
 ## Install RealVNC Server
 
 https://www.realvnc.com/en/connect/download/vnc/

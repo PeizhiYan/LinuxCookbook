@@ -1,8 +1,3 @@
-[return to table](../README.md)
-
----
-
-
 ## 👥 Add Docker to Groups
 
 To use Docker without requiring `sudo`, add your user to the **docker** group.

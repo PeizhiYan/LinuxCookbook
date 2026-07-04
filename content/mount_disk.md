@@ -1,7 +1,3 @@
-[return to table](../README.md)
-
----
-
 Mounting a new hard drive to a Linux system involves several steps. Here's a step-by-step guide:
 
 1. **Identify the New Hard Drive:**

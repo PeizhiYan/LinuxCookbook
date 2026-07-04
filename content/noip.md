@@ -1,7 +1,3 @@
-[return to table](../README.md)
-
----
-
 ## Install No-ip Client
 
 https://www.noip.com/download?page=linux

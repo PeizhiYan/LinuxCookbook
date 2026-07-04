@@ -1,7 +1,3 @@
-[return to table](../README.md)
-
----
-
 ## Config
 
 ```bash

@@ -1,7 +1,3 @@
-[return to table](../README.md)
-
----
-
 # Tmux (Terminal Multiplexier)
 
 

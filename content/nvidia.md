@@ -1,7 +1,3 @@
-[return to table](../README.md)
-
----
-
 ## Install Nvidia Driver on Ubuntu
 
 ### Step 1: Clean up broken/partial NVIDIA packages

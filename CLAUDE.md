@@ -17,9 +17,8 @@ renders those files in the browser.
 ```
 LinuxCookbook/
 ├── index.html            # The entire front-end app (HTML + CSS + JS, single file)
-├── README.md             # Original markdown table of contents (source of truth for NAV)
+├── README.md             # Source of truth for navigation (parsed at runtime by index.html)
 ├── CLAUDE.md             # This file
-├── build.py              # Optional: embeds all markdown into content-data.js (not used by default)
 ├── apple-touch-icon.png  # 180×180 PNG — iOS home screen icon
 ├── favicon-32.png        # 32×32 PNG — browser tab favicon
 ├── lib/
@@ -28,7 +27,7 @@ LinuxCookbook/
     ├── chmod.md
     ├── ssh.md
     ├── tmux.md
-    └── ... (29 .md files total)
+    └── ... (.md files — add freely, just update README.md)
 ```
 
 ---
@@ -51,22 +50,16 @@ LinuxCookbook/
 
 ## Navigation Data (`NAV` array)
 
-The sidebar and home cards are driven by a hardcoded `NAV` array in the `<script>` block
-of `index.html`. It mirrors `README.md` exactly. **When adding a new markdown file, update
-both `README.md` and the `NAV` array.**
+The sidebar and home cards are driven by a `NAV` array that is **built dynamically at
+runtime** by fetching and parsing `README.md`. **`index.html` does not need to be edited
+when adding or removing articles — only `README.md` needs updating.**
 
-```js
-const NAV = [
-  {
-    category: "Linux / Unix-like",
-    items: [
-      { emoji: "🔑", label: "Change File/Path Permission (chmod)", file: "content/chmod.md" },
-      // ...
-    ]
-  },
-  // ... 7 categories total
-];
-```
+The parser (`loadNav()` in `index.html`) looks for:
+- Top-level list items (`- Category Name`) → new category
+- Nested list items (`  - [emoji Label](./content/file.md)`) → article entry
+
+The leading emoji in the link label is automatically split from the text label using
+`Intl.Segmenter` (with a codepoint-range fallback for older browsers).
 
 ---
 
@@ -74,13 +67,19 @@ const NAV = [
 
 | Function | Description |
 |---|---|
-| `loadDoc(file, label, category, emoji)` | Fetches a markdown file, renders it with `marked`, runs `hljs` on code blocks, adds copy buttons |
+| `loadNav()` | Fetches `README.md` and parses it into the `NAV` array |
+| `initApp()` | Bootstrap: calls `loadNav()`, builds UI, starts prefetch, handles hash routing |
+| `buildSidebar()` | Renders the sidebar nav from `NAV` |
+| `buildHomeStats()` | Renders the article/category count pills on the home page |
+| `buildCategoryCards()` | Renders the home page category cards from `NAV` |
+| `loadDoc(file, label, category, emoji)` | Fetches a markdown file, renders it with `marked`, runs `hljs` on code blocks, adds copy buttons (desktop) or long-press copy (mobile) |
 | `showHome()` | Switches back to the home/dashboard view |
-| `prefetchContent()` | Fetches all 29 markdown files concurrently into `contentIndex` Map for full-text search |
+| `prefetchContent()` | Fetches all `.md` files concurrently into `contentIndex` Map for full-text search |
 | `runSearch(q)` | Searches `contentIndex` + titles, renders results with text snippets in the sidebar |
 | `stripMd(text)` | Strips markdown syntax before snippet extraction |
 | `getSnippet(rawText, q)` | Extracts a ~130-char snippet around the query match, HTML-highlights it |
 | `findNavItem(file)` | Looks up a NAV item by filename (used for hash routing and internal links) |
+| `showToast(msg)` | Shows a brief centered toast popup (used for mobile long-press copy feedback) |
 
 ---
 
@@ -88,13 +87,14 @@ const NAV = [
 
 Search works **without pre-embedding** any content:
 
-1. `prefetchContent()` fires immediately on page load — all 29 `.md` files are fetched
+1. `prefetchContent()` fires immediately on page load — all `.md` files are fetched
    concurrently via `Promise.all` (~30 KB total, finishes in <1s on localhost).
 2. Content is stored in `contentIndex: Map<file, rawMarkdown>`.
 3. When the user types, the normal sidebar nav hides and a results panel appears showing
    matching articles with highlighted text snippets.
 4. If the user types before the index is ready, a pulsing "Indexing…" indicator shows and
    results update automatically when the fetch completes.
+5. The search box has a **clear (✕) button** that appears when the field has text.
 
 ---
 
@@ -134,7 +134,20 @@ Hash-based routing only. Example: `index.html#content%2Ftmux.md`
   appears at the top of every content file (legacy nav link, not needed in the web UI).
 - Internal links between `.md` files (e.g. `content/ssh.md`) are intercepted and handled
   via `loadDoc()` rather than a browser navigation.
-- Code blocks get a hover-reveal **Copy** button injected after `hljs` processes them.
+- Code blocks get a hover-reveal **Copy** button injected after `hljs` processes them
+  (desktop only — see Mobile section below).
+
+---
+
+## Mobile Behaviour (≤768px)
+
+- Sidebar is hidden off-screen and slides in via a hamburger button + overlay.
+- Brand title ("Linux Cookbook") is hidden to give the search bar full header width.
+- Content area uses full width (`max-width: 100%`) with 16px side padding.
+- Code blocks and tables are horizontally scrollable (`overflow-x: auto`).
+- **Copy button is hidden**. Instead, long-pressing (600ms) a code block copies its text
+  and shows a "Copied!" toast that disappears after 1 second.
+- Category grid collapses to a single column.
 
 ---
 
@@ -142,12 +155,11 @@ Hash-based routing only. Example: `index.html#content%2Ftmux.md`
 
 1. Create `content/your-topic.md`
 2. Add the `[return to table](../README.md)` line at the top (optional, it's stripped anyway)
-3. Add an entry to `README.md` under the appropriate category
-4. Add the same entry to the `NAV` array in `index.html`:
-   ```js
-   { emoji: "🔧", label: "Your Topic", file: "content/your-topic.md" }
+3. Add an entry to `README.md` under the appropriate category:
+   ```md
+     - [🔧 Your Topic](./content/your-topic.md)
    ```
-5. Refresh — the page picks it up automatically.
+4. Refresh — the page picks it up automatically. No changes to `index.html` needed.
 
 ---
 
@@ -158,11 +170,9 @@ python3 -m http.server 8765
 # then open http://localhost:8765
 ```
 
----
-
-## What `build.py` Does (optional, not required)
-
-`build.py` reads all `content/*.md` files and writes a `content-data.js` file that
-embeds them as a JS object (`window.CONTENT_DATA`). This was created to support
-`file://` access but is **not currently used** — the app uses `fetch()` exclusively.
-You can delete `build.py` and `content-data.js` if they exist.
+To check if a server is already running on a port:
+```bash
+lsof -i :8765
+# kill it:
+kill $(lsof -ti :8765)
+```

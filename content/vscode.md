@@ -1,9 +1,3 @@
-[return to table](../README.md)
-
----
-
-
-
 ## VS Code Settings
 
 ```.vscode/settings.json```

@@ -86,7 +86,17 @@
     }
     .header-title:hover { color: var(--accent); }
     .search-wrap { flex: 1; position: relative; }
-    .search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
+    .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
+    .search-clear {
+      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; padding: 4px;
+      color: var(--text-muted); border-radius: 50%; line-height: 1;
+      display: none; align-items: center; justify-content: center;
+      transition: color var(--transition), background var(--transition);
+    }
+    .search-clear:hover { color: var(--text-primary); background: var(--bg-tertiary); }
+    .search-wrap.has-value .search-clear { display: flex; }
+    .search-wrap.has-value #search-input { padding-right: 32px; }
     #search-input {
       width: 100%; background: var(--bg-secondary);
       border: 1px solid var(--border); border-radius: 24px;
@@ -306,15 +316,85 @@
     }
     /* RESPONSIVE */
     @media (max-width: 768px) {
+      /* Sidebar: slide in/out */
       .sidebar { transform: translateX(-100%); }
       .sidebar.open { transform: translateX(0); }
       .sidebar-overlay.open { display: block; }
       .hamburger { display: flex; }
+
+      /* Hide brand title to save header space */
+      .header-title { display: none; }
+
+      /* Layout: full width, no left margin */
       .main { margin-left: 0; }
-      footer { margin-left: 0; }
-      .content-area { padding: 24px 20px; }
-      .home-hero h1 { font-size: 28px; }
-      footer { padding: 16px 20px; flex-direction: column; gap: 4px; }
+      footer { margin-left: 0; padding: 16px 16px; flex-direction: column; gap: 4px; text-align: center; }
+
+      /* Content area: comfortable side padding, no max-width clamp */
+      .content-area { padding: 20px 16px; max-width: 100%; }
+
+      /* Home hero */
+      .home-hero { margin-bottom: 32px; }
+      .home-hero-icon { font-size: 40px; }
+      .home-hero h1 { font-size: 26px; letter-spacing: -0.5px; }
+      .home-hero p { font-size: 14px; }
+      .category-grid { grid-template-columns: 1fr; gap: 12px; }
+
+      /* Doc header */
+      .doc-title { font-size: 22px; }
+
+      /* Markdown body: comfortable reading size */
+      .markdown-body { font-size: 15px; }
+      .markdown-body h1 { font-size: 22px; }
+      .markdown-body h2 { font-size: 18px; }
+      .markdown-body h3 { font-size: 15px; }
+      .markdown-body h4 { font-size: 14px; }
+
+      /* Code blocks: scroll horizontally, don't overflow screen */
+      .markdown-body pre {
+        padding: 14px 12px;
+        max-width: calc(100vw - 32px);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .markdown-body pre code { font-size: 12px; }
+
+      /* Inline code: slightly smaller */
+      .markdown-body code { font-size: 0.8em; }
+
+      /* Tables: horizontally scrollable */
+      .markdown-body table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        max-width: calc(100vw - 32px);
+        font-size: 12px;
+      }
+
+      /* Copy button: hidden on touch — long-press to copy instead */
+      .copy-btn { display: none; }
+
+      /* Toast popup for long-press copy */
+      .copy-toast {
+        position: fixed;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%) translateY(8px);
+        background: var(--text-primary);
+        color: var(--bg-primary);
+        font-size: 13px;
+        font-weight: 500;
+        padding: 8px 20px;
+        border-radius: 20px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.15s ease, transform 0.15s ease;
+        z-index: 9999;
+        white-space: nowrap;
+      }
+      .copy-toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
     }
   </style>
 </head>
@@ -322,11 +402,16 @@
 
 <header>
   <div class="header-title" id="brand-home">Linux Cookbook</div>
-  <div class="search-wrap">
-    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <div class="search-wrap" id="search-wrap">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
     </svg>
     <input type="text" id="search-input" placeholder="Search topics…" autocomplete="off" />
+    <button class="search-clear" id="search-clear" aria-label="Clear search">
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
   </div>
   <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark mode"><span id="theme-icon">☀️</span><span class="theme-label" id="theme-label">Light</span></button>
   <button class="hamburger" id="hamburger-btn" aria-label="Toggle sidebar">
@@ -375,118 +460,133 @@
 </div>
 
 <script>
-const NAV = [
-  {
-    category: "Linux / Unix-like",
-    items: [
-      { emoji: "🔑", label: "Change File/Path Permission (chmod)", file: "content/chmod.md" },
-      { emoji: "👥", label: "Managing Sudo Group Members",          file: "content/sudo.md" },
-      { emoji: "👤", label: "Managing Users",                       file: "content/users.md" },
-      { emoji: "🔐", label: "SSH, Login w/o Password",              file: "content/ssh.md" },
-      { emoji: "💿", label: "Mount Disk",                           file: "content/mount_disk.md" },
-      { emoji: "📀", label: "Setup RAID",                           file: "content/setup_raid.md" },
-      { emoji: "🗃️", label: "Setup SAMBA",                         file: "content/samba.md" },
-      { emoji: "📝", label: "Bash Scripting",                       file: "content/bash.md" },
-      { emoji: "🎛️", label: "System Resources Management",         file: "content/resource_mng.md" },
-      { emoji: "⏱️", label: "Processes",                           file: "content/process.md" },
-      { emoji: "🪛",  label: "Nvidia Driver",                       file: "content/nvidia.md" },
-    ]
-  },
-  {
-    category: "Tools",
-    items: [
-      { emoji: "🪟", label: "Tmux",     file: "content/tmux.md" },
-      { emoji: "⌨️", label: "Vim",     file: "content/vim.md" },
-      { emoji: "💻", label: "X11",     file: "content/x11.md" },
-      { emoji: "💻", label: "Xpra",    file: "content/xpra.md" },
-      { emoji: "🖥️", label: "RealVNC", file: "content/realvnc.md" },
-      { emoji: "🧑‍💻", label: "VS Code", file: "content/vscode.md" },
-    ]
-  },
-  {
-    category: "Network",
-    items: [
-      { emoji: "🛡️", label: "UFW: Uncomplicated Firewall", file: "content/ufw.md" },
-      { emoji: "🌎", label: "no-ip",                       file: "content/noip.md" },
-      { emoji: "🌐", label: "PiVPN",                       file: "content/pivpn.md" },
-      { emoji: "📧", label: "E-Mail Server",               file: "content/mail.md" },
-      { emoji: "🐠", label: "Tailscale",                   file: "content/tailscale.md" },
-      { emoji: "☁️", label: "Cloudflare",                  file: "content/cloudflare.md" },
-    ]
-  },
-  {
-    category: "Python",
-    items: [
-      { emoji: "🛞", label: "Pip", file: "content/pip.md" },
-    ]
-  },
-  {
-    category: "Environment Management",
-    items: [
-      { emoji: "🐍", label: "Conda",  file: "content/conda.md" },
-      { emoji: "🐋", label: "Docker", file: "content/docker.md" },
-    ]
-  },
-  {
-    category: "Git",
-    items: [
-      { emoji: "🗄️", label: "Git Basics", file: "content/git.md" },
-    ]
-  },
-  {
-    category: "Other Systems",
-    items: [
-      { emoji: "🍎", label: "MacOS Commands",              file: "content/macos.md" },
-      { emoji: "🪟", label: "Windows Subsystem for Linux", file: "content/WSL.md" },
-    ]
+// NAV is populated dynamically by parsing README.md at runtime.
+// To add/remove articles, edit README.md — no changes to this file needed.
+let NAV = [];
+
+/**
+ * Fetches README.md and parses it into the NAV array.
+ * Expected format:
+ *   - Category Name          (top-level list item  → new category)
+ *     - [emoji Label](./content/file.md)  (nested list item → article)
+ */
+async function loadNav() {
+  try {
+    const res = await fetch('README.md');
+    if (!res.ok) throw new Error('Could not load README.md');
+    const text = await res.text();
+    const lines = text.split('\n');
+
+    // Regex to match a nested item:  "  - [label](./content/file.md)"
+    // The label may start with one or more emoji characters.
+    const itemRe = /^\s{2,}-\s+\[([^\]]+)\]\(\.\/(content\/[^)]+\.md)\)/;
+    // Regex to match a top-level category:  "- Category Name"
+    const catRe  = /^-\s+(.+)$/;
+
+    // Helper: split leading emoji from the rest of the label.
+    // Uses Intl.Segmenter when available, falls back to codepoint check.
+    function splitEmoji(str) {
+      const s = str.trim();
+      try {
+        // Walk grapheme clusters; stop at the first ASCII-range cluster.
+        const seg = new Intl.Segmenter();
+        let emojiEnd = 0;
+        for (const { segment } of seg.segment(s)) {
+          const cp = segment.codePointAt(0);
+          // Stop if this cluster is plain ASCII (codepoint < 128)
+          if (cp < 128) break;
+          emojiEnd += segment.length;
+        }
+        if (emojiEnd > 0) {
+          return { emoji: s.slice(0, emojiEnd).trimEnd(), label: s.slice(emojiEnd).trim() };
+        }
+      } catch(e) {
+        // Fallback: find first space after non-ASCII opener
+        const spaceIdx = s.indexOf(' ');
+        if (spaceIdx > 0 && s.codePointAt(0) > 127) {
+          return { emoji: s.slice(0, spaceIdx), label: s.slice(spaceIdx + 1).trim() };
+        }
+      }
+      return { emoji: '📄', label: s };
+    }
+
+    let current = null;
+    for (const line of lines) {
+      const itemMatch = line.match(itemRe);
+      if (itemMatch) {
+        if (!current) continue; // no category yet, skip
+        const { emoji, label } = splitEmoji(itemMatch[1]);
+        const file = itemMatch[2]; // e.g. "content/tmux.md"
+        current.items.push({ emoji, label, file });
+        continue;
+      }
+      const catMatch = line.match(catRe);
+      if (catMatch) {
+        // Only treat as a category if it is NOT a nested item (no leading spaces)
+        // and does NOT look like a markdown link.
+        const raw = catMatch[1].trim();
+        if (!raw.startsWith('[')) {
+          current = { category: raw.replace(/:$/, '').trim(), items: [] };
+          NAV.push(current);
+        }
+      }
+    }
+  } catch (e) {
+    console.error('Failed to load NAV from README.md:', e);
   }
-];
+}
 
-// Build sidebar
 const sidebarNav = document.getElementById('sidebar-nav');
-NAV.forEach(section => {
-  const sec = document.createElement('div');
-  const cat = document.createElement('div');
-  cat.className = 'sidebar-category';
-  cat.textContent = section.category;
-  sec.appendChild(cat);
-  section.items.forEach(item => {
-    const link = document.createElement('div');
-    link.className = 'sidebar-link';
-    link.dataset.file = item.file;
-    link.dataset.label = item.label.toLowerCase();
-    link.dataset.category = section.category.toLowerCase();
-    link.innerHTML = '<span class="emoji">' + item.emoji + '</span><span>' + item.label + '</span>';
-    link.addEventListener('click', () => loadDoc(item.file, item.label, section.category, item.emoji));
-    sec.appendChild(link);
-  });
-  sidebarNav.appendChild(sec);
-});
 
-// Build home stats
-const totalDocs = NAV.reduce((s, c) => s + c.items.length, 0);
-document.getElementById('home-stats').innerHTML =
-  '<div class="stat-pill">📄 <span>' + totalDocs + '</span> articles</div>' +
-  '<div class="stat-pill">📂 <span>' + NAV.length + '</span> categories</div>' +
-  '<div class="stat-pill">🐧 Linux &amp; more</div>';
-
-// Build category cards
-const grid = document.getElementById('category-grid');
-NAV.forEach(section => {
-  const card = document.createElement('div');
-  card.className = 'category-card';
-  const shown = section.items.slice(0, 4);
-  const more = section.items.length > 4 ? section.items.length - 4 : 0;
-  const rows = shown.map(i => '<li>' + i.emoji + ' ' + i.label + '</li>').join('');
-  const moreRow = more ? '<li style="color:var(--text-muted)">+' + more + ' more\u2026</li>' : '';
-  card.innerHTML = '<div class="category-card-title">' + section.category + '</div>' +
-    '<ul class="category-card-items">' + rows + moreRow + '</ul>';
-  card.addEventListener('click', () => {
-    const firstItem = section.items[0];
-    if (firstItem) loadDoc(firstItem.file, firstItem.label, section.category, firstItem.emoji);
+function buildSidebar() {
+  sidebarNav.innerHTML = '';
+  NAV.forEach(section => {
+    const sec = document.createElement('div');
+    const cat = document.createElement('div');
+    cat.className = 'sidebar-category';
+    cat.textContent = section.category;
+    sec.appendChild(cat);
+    section.items.forEach(item => {
+      const link = document.createElement('div');
+      link.className = 'sidebar-link';
+      link.dataset.file = item.file;
+      link.dataset.label = item.label.toLowerCase();
+      link.dataset.category = section.category.toLowerCase();
+      link.innerHTML = '<span class="emoji">' + item.emoji + '</span><span>' + item.label + '</span>';
+      link.addEventListener('click', () => loadDoc(item.file, item.label, section.category, item.emoji));
+      sec.appendChild(link);
+    });
+    sidebarNav.appendChild(sec);
   });
-  grid.appendChild(card);
-});
+}
+
+function buildHomeStats() {
+  const totalDocs = NAV.reduce((s, c) => s + c.items.length, 0);
+  document.getElementById('home-stats').innerHTML =
+    '<div class="stat-pill">📄 <span>' + totalDocs + '</span> articles</div>' +
+    '<div class="stat-pill">📂 <span>' + NAV.length + '</span> categories</div>' +
+    '<div class="stat-pill">🐧 Linux &amp; more</div>';
+}
+
+function buildCategoryCards() {
+  const grid = document.getElementById('category-grid');
+  grid.innerHTML = '';
+  NAV.forEach(section => {
+    const card = document.createElement('div');
+    card.className = 'category-card';
+    const shown = section.items.slice(0, 4);
+    const more = section.items.length > 4 ? section.items.length - 4 : 0;
+    const rows = shown.map(i => '<li>' + i.emoji + ' ' + i.label + '</li>').join('');
+    const moreRow = more ? '<li style="color:var(--text-muted)">+' + more + ' more\u2026</li>' : '';
+    card.innerHTML = '<div class="category-card-title">' + section.category + '</div>' +
+      '<ul class="category-card-items">' + rows + moreRow + '</ul>';
+    card.addEventListener('click', () => {
+      const firstItem = section.items[0];
+      if (firstItem) loadDoc(firstItem.file, firstItem.label, section.category, firstItem.emoji);
+    });
+    grid.appendChild(card);
+  });
+}
 
 // ── Full-text search ──────────────────────────────────────────
 const contentIndex = new Map(); // file → raw markdown text
@@ -505,6 +605,25 @@ async function prefetchContent() {
   const q = document.getElementById('search-input').value.trim();
   if (q) runSearch(q);
 }
+
+// ── Bootstrap: load NAV from README.md, then build UI ─────────
+async function initApp() {
+  await loadNav();
+  buildSidebar();
+  buildHomeStats();
+  buildCategoryCards();
+
+  // Kick off background prefetch immediately
+  prefetchContent();
+
+  // Hash routing on load
+  const hash = decodeURIComponent(location.hash.slice(1));
+  if (hash) {
+    const found = findNavItem(hash);
+    if (found) loadDoc(found.file, found.label, found.category, found.emoji);
+  }
+}
+initApp();
 
 function stripMd(text) {
   return text
@@ -578,8 +697,19 @@ function runSearch(q) {
   }
 }
 
+const searchWrap = document.getElementById('search-wrap');
+document.getElementById('search-clear').addEventListener('click', () => {
+  const inp = document.getElementById('search-input');
+  inp.value = '';
+  searchWrap.classList.remove('has-value');
+  sidebarNav.style.display = '';
+  searchResultsEl.style.display = 'none';
+  inp.focus();
+});
+
 document.getElementById('search-input').addEventListener('input', function() {
   const q = this.value.trim().toLowerCase();
+  searchWrap.classList.toggle('has-value', this.value.length > 0);
   if (!q) {
     // Restore normal nav
     sidebarNav.style.display = '';
@@ -591,8 +721,7 @@ document.getElementById('search-input').addEventListener('input', function() {
   runSearch(q);
 });
 
-// Kick off background prefetch immediately
-prefetchContent();
+
 
 // Markdown config
 marked.setOptions({ gfm: true, breaks: true });
@@ -603,6 +732,18 @@ renderer.paragraph = function(token) {
   return origParagraph(token);
 };
 marked.use({ renderer });
+
+// ── Toast notification (mobile long-press copy feedback) ──────
+const _toast = document.createElement('div');
+_toast.className = 'copy-toast';
+document.body.appendChild(_toast);
+let _toastTimer = null;
+function showToast(msg) {
+  _toast.textContent = msg;
+  _toast.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => _toast.classList.remove('show'), 1000);
+}
 
 function findNavItem(file) {
   for (const section of NAV) {
@@ -651,17 +792,32 @@ async function loadDoc(file, label, category, emoji) {
       wrap.className = 'code-block-wrap';
       pre.parentNode.insertBefore(wrap, pre);
       wrap.appendChild(pre);
-      const btn = document.createElement('button');
-      btn.className = 'copy-btn';
-      btn.textContent = 'Copy';
-      btn.addEventListener('click', () => {
-        navigator.clipboard.writeText(block.innerText).then(() => {
-          btn.textContent = 'Copied!';
-          btn.classList.add('copied');
-          setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      if (isMobile) {
+        // Long-press to copy on mobile
+        let pressTimer = null;
+        pre.addEventListener('touchstart', () => {
+          pressTimer = setTimeout(() => {
+            navigator.clipboard.writeText(block.innerText).then(() => showToast('Copied!'));
+          }, 600);
+        }, { passive: true });
+        pre.addEventListener('touchend',   () => clearTimeout(pressTimer), { passive: true });
+        pre.addEventListener('touchmove',  () => clearTimeout(pressTimer), { passive: true });
+      } else {
+        // Desktop: hover copy button
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.textContent = 'Copy';
+        btn.addEventListener('click', () => {
+          navigator.clipboard.writeText(block.innerText).then(() => {
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+          });
         });
-      });
-      wrap.appendChild(btn);
+        wrap.appendChild(btn);
+      }
     });
 
     docContent.querySelectorAll('a').forEach(a => {
@@ -729,14 +885,7 @@ sidebarNav.addEventListener('click', () => {
   }
 });
 
-// Hash routing on load
-(function() {
-  const hash = decodeURIComponent(location.hash.slice(1));
-  if (hash) {
-    const found = findNavItem(hash);
-    if (found) { loadDoc(found.file, found.label, found.category, found.emoji); return; }
-  }
-})();
+
 </script>
 </body>
 </html>

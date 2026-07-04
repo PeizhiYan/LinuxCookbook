@@ -1,8 +1,3 @@
-[return to table](../README.md)
-
----
-
-
 ## Add A User
 
 ```shell

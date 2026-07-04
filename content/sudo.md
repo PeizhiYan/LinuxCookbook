@@ -1,7 +1,3 @@
-[return to table](../README.md)
-
----
-
 # Managing Sudo Group Membership in Linux
 
 This guide explains how to add or remove users from the sudo group in Linux and how to verify these changes. The sudo group grants users the ability to execute commands with superuser (root) privileges, which are necessary for performing system administration tasks.

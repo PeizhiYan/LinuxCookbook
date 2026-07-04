@@ -1,7 +1,3 @@
-[return to table](../README.md)
-
----
-
 # Pi VPN
 
 ## Run the official installation script:

@@ -1,9 +1,3 @@
-[return to table](../README.md)
-
----
-
-
-
 ## Use Docker
 
 docker run -it --gpus all -p PORT:PORT -V LOCAL_PATH:MOUNT_TO IMAGE:TAG

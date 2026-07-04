@@ -1,7 +1,3 @@
-[return to table](../README.md)
-
----
-
 ### Check the ID of A User
 ```shell
 id [USER]

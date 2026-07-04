@@ -1,7 +1,3 @@
-[return to table](../README.md)
-
----
-
 # Tailscale VPN
 
 A quick reference for everyday Tailscale commands — connecting, checking status, sharing a local service privately (Serve), and exposing one to the public internet (Funnel).

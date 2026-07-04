@@ -1,7 +1,3 @@
-[return to table](../README.md)
-
----
-
 # Cloudflare Tunnel
 
 A quick reference for managing Cloudflare Tunnels with `cloudflared`.
