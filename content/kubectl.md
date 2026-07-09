@@ -48,3 +48,49 @@
 | `kubectl logs <pod-name> --tail=100` | Only the last 100 lines of logs |
 | `kubectl logs <pod-name> --since=1h` | Only logs from the last hour |
 | `kubectl logs <pod-name> --previous` | Logs from the previous (crashed) container |
+
+---
+
+## Connect to DB via EKS using pg-tunnel 
+
+### 1. Get DB connection info (assume secrets is on AWS)
+```
+aws secretsmanager get-secret-value \
+  --secret-id <SECRET_ID> \
+  --region <REGION> \
+  --query SecretString \
+  --output text | \
+    jq -r '.address, .port, .dbname, .username'
+```
+
+### 2. Start the tunnel pod
+```
+kubectl run pg-tunnel -n <NAMESPACE> --image=alpine/socat --restart=Never -- \
+  tcp-listen:5432,fork,reuseaddr tcp-connect:<RDS_ADDRESS>:5432
+```
+Note: 
+- Assume the DB is in AWS RDS
+- Assume the DB port is 5432
+
+Check if the `pg-tunnel` pod STATUS is running
+```
+kubectl get pod pg-tunnel -n <NAMESPACE> -w
+```
+
+### 3. Port-forward pod -> localhost
+```
+kubectl port-forward -n <NAMESPACE> pod/pg-tunnel <LOCAL_PORT>:5432
+```
+
+### 4. Get the password
+```
+aws secretsmanager get-secret-value \
+  --secret-id <SECRET_ID> \
+  --region <REGION> \
+  --query SecretString \
+  --output test | jq -r '.passwd'
+```
+
+### 5. Connect from a client app (e.g., DBeaver)
+
+
