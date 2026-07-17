@@ -93,4 +93,7 @@ aws secretsmanager get-secret-value \
 
 ### 5. Connect from a client app (e.g., DBeaver)
 
-
+### 6. Delete the pod after use
+```
+kubectl delete pod pg-tunnel
+```
