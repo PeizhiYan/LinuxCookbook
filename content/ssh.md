@@ -89,7 +89,7 @@ After running it, `localhost:8888` on client's computer is forwarded to `localho
 
 It turns your SSH connection into a SOCKS proxy.
 
-The difference with `ssh -L` is that `-L` hardcode one destination so tunnel only ever reaches that one host and port. With `-D 8888`, no destination is baked in. SSH opens a SOCKS server on `localhost:8888`, and whatever connects to it tells SSH where it wants to go. The server will make that connection on your behalf.
+The difference with `ssh -L` is that `-L` hardcode one destination so tunnel only ever reaches that one host and port. With `-D 8888`, no destination is baked in. SSH opens a SOCKS server on `localhost:8888`, and whatever connects to it tells SSH where it wants to go. The server will make that connection on your behalf. All the network traffic will go through the server.
 
 ```
 ssh -D 8888 [user]@[server]
