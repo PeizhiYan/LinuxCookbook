@@ -15,8 +15,8 @@
 
 | Command | Description |
 | :--- | :--- |
-| `aws eks list-clusters --region us-east-2` | List EKS clusters in the account |
-| `aws eks update-kubeconfig --name udx-production --region us-east-2 --alias udx-production` | Add a cluster's credentials to kubeconfig (with a friendly alias) |
+| `aws eks list-clusters --region us-east-1` | List EKS clusters in the account |
+| `aws eks update-kubeconfig --name cluster_name --region us-east-1 --alias cluster_alias_name` | Add a cluster's credentials to kubeconfig (with a friendly alias) |
 
 > 📌 **Note:** Having the context ≠ having access — your IAM identity must also be granted access inside the cluster (EKS access entry / `aws-auth`). Private API endpoints may require a VPN/Tailscale exit node.
 
